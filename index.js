@@ -47,11 +47,16 @@ function returnTop() {
 // 轮播
 glide.on(['mount.after', 'run.after'], () => {
   const caption = captionsEl[glide.index]
+  // console.log(captionsEl)
+
+  // console.log(caption.children)
+
   anime({
     targets: caption.children,
     opacity: [0, 1],
     duration: 400,
     easing: 'linear',
+    // 隔多久出现下一个元素,start是刚载入页面的时候隔3秒出现下一个元素
     delay: anime.stagger(400, { start: 300 }),
     translateY: [anime.stagger([40, 10]), 0]
   })
@@ -75,7 +80,11 @@ const filterBtns = document.querySelector('.filter-btns')
 
 filterBtns.addEventListener('click', e => {
   let { target } = e
+  // console.log({ target })
+
   const filterOption = target.getAttribute('data-filter')
+  console.log(filterOption)
+
   if (filterOption) {
     document
       .querySelectorAll('.filter-btn.active')
@@ -101,10 +110,12 @@ ScrollReveal().reveal('.data-section', {
   beforeReveal: () => {
     anime({
       targets: '.data-piece .num',
-      innerHTML: el => {
-        return [0, el.innerHTML]
+      innerHTML: e => {
+        console.log(e)
+        return [0, e.innerHTML]
       },
       duration: 2000,
+      // 每次增加1，不要从小数字开始增加
       round: 1,
       easing: 'easeInExpo'
     })
